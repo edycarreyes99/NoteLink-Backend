@@ -6,7 +6,6 @@ import {
   Patch,
   Param,
   Delete,
-  BadRequestException,
 } from '@nestjs/common';
 import { NotesService } from '../services/notes.service';
 import { CreateNoteDto } from '../dto/create-note.dto';
