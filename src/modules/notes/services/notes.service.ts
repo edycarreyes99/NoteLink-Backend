@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from "@nestjs/common";
 import { CreateNoteDto } from '../dto/create-note.dto';
 import { UpdateNoteDto } from '../dto/update-note.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -64,8 +64,32 @@ export class NotesService {
     });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} note`;
+  async findOne(id: number): Promise<UpdateNoteDto> {
+    return new Promise<UpdateNoteDto>(async (resolve, rejects) => {
+      await this.notesRepository
+        .findOne({
+          where: {
+            id: id,
+            deleted_at: null,
+          },
+        })
+        .then((note) => {
+          if (note !== null) {
+            this.logger.log(`Note found: ${JSON.stringify(note)}`);
+
+            // Remove timestamps from the response object
+            delete note.deleted_at;
+
+            resolve(note);
+          } else {
+            rejects(new NotFoundException('The requested Note was not found'));
+          }
+        })
+        .catch((error) => {
+          this.logger.error('Error finding note:', error);
+          rejects(error);
+        });
+    });
   }
 
   update(id: number, updateNoteDto: UpdateNoteDto) {
