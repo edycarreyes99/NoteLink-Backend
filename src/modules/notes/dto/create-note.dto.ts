@@ -1,8 +1,8 @@
 import {
   IsArray,
+  IsEmpty,
   IsNotEmpty,
   IsString,
-  IsUrl,
   MinLength,
 } from 'class-validator';
 
@@ -18,6 +18,5 @@ export class CreateNoteDto {
   description: string;
 
   @IsArray()
-  @IsUrl({ each: true })
   images?: string[];
 }

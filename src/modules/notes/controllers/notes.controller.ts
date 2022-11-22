@@ -18,27 +18,6 @@ export class NotesController {
 
   @Post()
   create(@Body() createNoteDto: CreateNoteDto) {
-    // Validate if the request body is defined
-    if (!createNoteDto) {
-      throw new BadRequestException('Please provide a valid note');
-    }
-
-    // Validate if the name of the note is not null and not empty and if it is longer than 3 characters
-    if (!createNoteDto.name || createNoteDto.name.trim() === '') {
-      return new BadRequestException('Name is required');
-    } else if (createNoteDto.name.trim().length < 3) {
-      return new BadRequestException('Name must be at least 3 characters long');
-    }
-
-    // Validate if the description of the note is not null and not empty and if it is longer than 3 characters
-    if (!createNoteDto.description || createNoteDto.description.trim() === '') {
-      return new BadRequestException('Description is required');
-    } else if (createNoteDto.description.trim().length < 3) {
-      return new BadRequestException(
-        'Description must be at least 3 characters long',
-      );
-    }
-
     // Validate if the images array is null to initialize it as an empty array
     if (!createNoteDto.images) {
       createNoteDto.images = [];
