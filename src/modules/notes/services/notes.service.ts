@@ -20,7 +20,13 @@ export class NotesService {
       await this.notesRepository
         .save(createNoteDto)
         .then((noteCreated) => {
-          this.logger.log(`Note created correctly: ${noteCreated}`);
+          this.logger.log(
+            `Note created correctly: ${JSON.stringify(noteCreated)}`,
+          );
+
+          // Remove timestamps from the response object
+          delete noteCreated.deleted_at;
+
           resolve(noteCreated);
         })
         .catch((error) => {
@@ -30,8 +36,32 @@ export class NotesService {
     });
   }
 
-  findAll() {
-    return `This action returns all notes`;
+  async findAll(): Promise<UpdateNoteDto[]> {
+    return new Promise<UpdateNoteDto[]>(async (resolve, rejects) => {
+      await this.notesRepository
+        .find({
+          where: {
+            deleted_at: null,
+          },
+          order: {
+            created_at: 'DESC',
+          },
+        })
+        .then((notes) => {
+          this.logger.log(`Notes found: ${JSON.stringify(notes)}`);
+
+          // Remove timestamps from the response object
+          notes.forEach((note) => {
+            delete note.deleted_at;
+          });
+
+          resolve(notes);
+        })
+        .catch((error) => {
+          this.logger.error('Error finding notes:', error);
+          rejects(error);
+        });
+    });
   }
 
   findOne(id: number) {
