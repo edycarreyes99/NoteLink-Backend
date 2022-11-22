@@ -109,6 +109,7 @@ export class NotesService {
           noteToUpdate.id = noteFound.id;
           noteToUpdate.name = updateNoteDto.name;
           noteToUpdate.description = updateNoteDto.description;
+          noteToUpdate.images = updateNoteDto.images ?? [];
 
           // Remove the timestamps from the object before updating
           delete (noteFound as Note).created_at;
@@ -130,7 +131,7 @@ export class NotesService {
             })
             .catch((error) => {
               this.logger.error('Error updating note:', error);
-              rejects(error);
+              rejects(new InternalServerErrorException(error));
             });
         })
         .catch((error) => {
@@ -139,7 +140,26 @@ export class NotesService {
     });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} note`;
+  async remove(id: number): Promise<UpdateNoteDto> {
+    return new Promise<UpdateNoteDto>(async (resolve, rejects) => {
+      await this.findOne(id)
+        .then(async (noteFound) => {
+          await this.notesRepository
+            .softDelete(id)
+            .then(() => {
+              // Added the deleted_at timestamp to the response object
+              (noteFound as Note).deleted_at = new Date();
+
+              resolve(noteFound);
+            })
+            .catch((error) => {
+              this.logger.error('Error deleting note:', error);
+              rejects(new InternalServerErrorException(error));
+            });
+        })
+        .catch((error) => {
+          rejects(error);
+        });
+    });
   }
 }
