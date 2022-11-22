@@ -7,7 +7,6 @@ dotenv.config();
 const config: PostgresConnectionOptions = {
   name: 'notelink',
   type: 'postgres',
-  schema: 'public',
   host: process.env.NOTELINK_DB_HOST,
   port: parseInt(process.env.NOTELINK_DB_PORT, 10),
   username: process.env.NOTELINK_DB_USER,
