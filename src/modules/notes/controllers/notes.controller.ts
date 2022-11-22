@@ -18,6 +18,7 @@ export class NotesController {
 
   @Post()
   create(@Body() createNoteDto: CreateNoteDto) {
+    // Validate if the request body is defined
     if (!createNoteDto) {
       throw new BadRequestException('Please provide a valid note');
     }
