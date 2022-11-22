@@ -18,11 +18,6 @@ export class NotesController {
 
   @Post()
   create(@Body() createNoteDto: CreateNoteDto) {
-    // Validate if the images array is null to initialize it as an empty array
-    if (!createNoteDto.images) {
-      createNoteDto.images = [];
-    }
-
     return this.notesService.create(createNoteDto);
   }
 
