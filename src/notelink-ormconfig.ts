@@ -1,6 +1,7 @@
 import { DataSource } from 'typeorm';
 import * as dotenv from 'dotenv';
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
+import { Note } from './modules/notes/entities/note.entity';
 
 dotenv.config();
 
@@ -12,10 +13,10 @@ const config: PostgresConnectionOptions = {
   username: process.env.NOTELINK_DB_USER,
   password: process.env.NOTELINK_DB_PASSWORD,
   database: process.env.NOTELINK_DB_NAME,
-  entities: [],
+  entities: [Note],
   synchronize: true,
   migrationsRun: true,
-  logging: false,
+  logging: true,
   migrations: [__dirname + '/migrations/**/*{.ts,.js}'],
   ssl: false,
 };
