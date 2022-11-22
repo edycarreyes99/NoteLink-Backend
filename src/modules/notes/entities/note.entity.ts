@@ -28,9 +28,10 @@ export class Note {
   })
   description: string;
 
-  @Column('array', {
+  @Column('text', {
     name: 'images',
     nullable: true,
+    array: true,
     default: () => 'ARRAY[]::text[]',
   })
   images: string[];
