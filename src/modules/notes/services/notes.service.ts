@@ -1,4 +1,9 @@
-import { Injectable, Logger, NotFoundException } from "@nestjs/common";
+import {
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateNoteDto } from '../dto/create-note.dto';
 import { UpdateNoteDto } from '../dto/update-note.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -31,7 +36,7 @@ export class NotesService {
         })
         .catch((error) => {
           this.logger.error('Error creating note:', error);
-          rejects(error);
+          rejects(new InternalServerErrorException(error));
         });
     });
   }
@@ -59,7 +64,7 @@ export class NotesService {
         })
         .catch((error) => {
           this.logger.error('Error finding notes:', error);
-          rejects(error);
+          rejects(new InternalServerErrorException(error));
         });
     });
   }
@@ -87,13 +92,51 @@ export class NotesService {
         })
         .catch((error) => {
           this.logger.error('Error finding note:', error);
-          rejects(error);
+          rejects(new InternalServerErrorException(error));
         });
     });
   }
 
-  update(id: number, updateNoteDto: UpdateNoteDto) {
-    return `This action updates a #${id} note`;
+  async update(
+    id: number,
+    updateNoteDto: UpdateNoteDto,
+  ): Promise<UpdateNoteDto> {
+    return new Promise<UpdateNoteDto>(async (resolve, rejects) => {
+      await this.findOne(id)
+        .then(async (noteFound) => {
+          // Create the object to update
+          const noteToUpdate = new Note();
+          noteToUpdate.id = noteFound.id;
+          noteToUpdate.name = updateNoteDto.name;
+          noteToUpdate.description = updateNoteDto.description;
+
+          // Remove the timestamps from the object before updating
+          delete (noteFound as Note).created_at;
+          delete (noteFound as Note).updated_at;
+          delete (noteFound as Note).deleted_at;
+
+          // Merge the old object values with the new ones
+          this.notesRepository.merge(noteFound as Note, noteToUpdate);
+
+          // Save the updated object to the database
+          await this.notesRepository
+            .save(noteFound)
+            .then((noteUpdated) => {
+              this.logger.log(
+                `Note updated correctly ${JSON.stringify(noteUpdated)}`,
+              );
+
+              resolve(noteUpdated);
+            })
+            .catch((error) => {
+              this.logger.error('Error updating note:', error);
+              rejects(error);
+            });
+        })
+        .catch((error) => {
+          rejects(error);
+        });
+    });
   }
 
   remove(id: number) {
