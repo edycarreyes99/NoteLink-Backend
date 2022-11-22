@@ -1,0 +1,15 @@
+version: '3.3'
+
+services:
+  postgresql:
+    container_name: notelink-postgresql
+    image: postgres:latest
+    restart: always
+    environment:
+      - POSTGRES_DB=${NOTELINK_DB_NAME}
+      - POSTGRES_USER=${NOTELINK_DB_USER}
+      - POSTGRES_PASSWORD=${NOTELINK_DB_PASSWORD}
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
