@@ -107,7 +107,7 @@ export class NotesService {
           // Create the object to update
           const noteToUpdate = new Note();
           noteToUpdate.id = noteFound.id;
-          noteToUpdate.name = updateNoteDto.name;
+          noteToUpdate.title = updateNoteDto.title;
           noteToUpdate.description = updateNoteDto.description;
           noteToUpdate.images = updateNoteDto.images ?? [];
 

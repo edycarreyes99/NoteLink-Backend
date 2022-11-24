@@ -4,7 +4,7 @@ export class CreateNoteDto {
   @IsNotEmpty()
   @MinLength(3)
   @IsString()
-  name: string;
+  title: string;
 
   @IsNotEmpty()
   @MinLength(3)

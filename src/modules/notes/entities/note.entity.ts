@@ -17,10 +17,10 @@ export class Note {
   id: number;
 
   @Column('text', {
-    name: 'name',
+    name: 'title',
     nullable: false,
   })
-  name: string;
+  title: string;
 
   @Column('text', {
     name: 'description',
