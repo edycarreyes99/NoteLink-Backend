@@ -42,6 +42,13 @@ export class Note {
   })
   color: string;
 
+  @Column('text', {
+    name: 'user_uid',
+    default: () => `''`,
+    nullable: false,
+  })
+  user_uid: string;
+
   @Column({
     name: 'created_at',
   })

@@ -13,6 +13,8 @@ import { CreateNoteDto } from '../dto/create-note.dto';
 import { UpdateNoteDto } from '../dto/update-note.dto';
 import { AuthenticatedGuard } from '../../auth/guards/authenticated.guard';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { User } from '../../auth/decorators/user.decorator';
+import { DecodedIdToken } from 'firebase-admin/lib/auth';
 
 @ApiTags('Notes')
 @ApiBearerAuth()
@@ -27,8 +29,8 @@ export class NotesController {
   }
 
   @Get()
-  findAll() {
-    return this.notesService.findAll();
+  findAll(@User() user: DecodedIdToken) {
+    return this.notesService.findAll(user.uid);
   }
 
   @Get(':id')

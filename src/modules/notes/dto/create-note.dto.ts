@@ -20,4 +20,10 @@ export class CreateNoteDto {
 
   @ApiProperty()
   color?: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @MinLength(3)
+  @IsString()
+  user_uid: string;
 }

@@ -41,12 +41,13 @@ export class NotesService {
     });
   }
 
-  async findAll(): Promise<UpdateNoteDto[]> {
+  async findAll(user_uid: string): Promise<UpdateNoteDto[]> {
     return new Promise<UpdateNoteDto[]>(async (resolve, rejects) => {
       await this.notesRepository
         .find({
           where: {
             deleted_at: null,
+            user_uid,
           },
           order: {
             created_at: 'DESC',
