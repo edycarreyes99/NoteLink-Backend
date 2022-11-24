@@ -3,6 +3,7 @@
 </p>
 
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
+
 [circleci-url]: https://circleci.com/gh/nestjs/nest
 
   <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
@@ -24,26 +25,66 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Backend service for the NoteLink project.
 
 ## Installation
 
+**You're going to need yarn. You can install it by run `npm i -g yarn`. Is preferred to use node.js v16.13.0** Then, you
+can run the code:
+
 ```bash
-$ npm install
+$ yarn install
 ```
 
 ## Running the app
 
+To run the app locally, first you need to have set up the environment variables and the database. The unique environment
+file that you need to serve the app without problems is the `.env` file. Then you can run the following code to start
+the application:
+
 ```bash
 # development
-$ npm run start
+$ yarn start
 
 # watch mode
-$ npm run start:dev
+$ yarn start:dev
 
 # production mode
-$ npm run start:prod
+$ yarn start:prod
 ```
+
+## Info
+
+This project was thinking to be very scalable, so it's divided in modules. Each module has its own controllers,
+services, and other stuffs that are related to it. I use swagger to document the API, so you can check the documentation
+on the `/api` route.
+
+## Dependencies
+
+* **@nestjs/mapped-types** - A package that helps to map and validate types, it works very well with
+  the `class-validator` dependency.
+
+* **@nestjs/passport** - A package that helps to integrate passport with nestjs.
+
+* **@nestjs/swagger** - A package that helps to integrate swagger with nestjs and build the API's documentation.
+
+* **@nestjs/typeorm** - A package that helps to integrate typeorm with nestjs and manage many databases with one ORM.
+
+* **class-validator** - A package that helps to validate the data that comes from the client.
+
+* **class-transformer** - A package that helps to transform the data that comes from the client.
+
+* **dotenv** - A package that helps to manage the environment variables.
+
+* **passport** - A package that helps to manage the authentication.
+
+* **passport-jwt** - A package that helps to manage the authentication with jwt.
+
+* **pg** - A package that helps to manage the postgres database.
+
+* **helmet** - A package that helps to secure the app.
+
+* **firebase-admin** - A package that helps to manage the firebase from the server side.
 
 ## Test
 
@@ -60,7 +101,8 @@ $ npm run test:cov
 
 ## Support
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If
+you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
 ## Stay in touch
 
