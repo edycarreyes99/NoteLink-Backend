@@ -1,4 +1,9 @@
-import { IsArray, IsEmpty, IsNotEmpty, IsString, MinLength } from "class-validator";
+import {
+  IsArray,
+  IsNotEmpty,
+  IsString,
+  MinLength,
+} from 'class-validator';
 
 export class CreateNoteDto {
   @IsNotEmpty()
@@ -14,7 +19,5 @@ export class CreateNoteDto {
   @IsArray()
   images?: string[];
 
-  @IsString()
-  @IsEmpty()
   color?: string;
 }

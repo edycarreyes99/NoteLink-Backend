@@ -110,6 +110,7 @@ export class NotesService {
           noteToUpdate.title = updateNoteDto.title;
           noteToUpdate.description = updateNoteDto.description;
           noteToUpdate.images = updateNoteDto.images ?? [];
+          noteToUpdate.color = updateNoteDto.color ?? null;
 
           // Remove the timestamps from the object before updating
           delete (noteFound as Note).created_at;
