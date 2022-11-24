@@ -36,10 +36,9 @@ export class Note {
   })
   images: string[];
 
-  @Column('tinytext', {
+  @Column({
     name: 'color',
     nullable: true,
-    default: () => null,
   })
   color: string;
 
