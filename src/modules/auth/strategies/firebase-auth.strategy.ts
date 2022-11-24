@@ -1,21 +1,24 @@
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable, Logger, UnauthorizedException } from '@nestjs/common';
 import { Strategy, ExtractJwt } from 'passport-firebase-jwt';
-import * as firebaseConfig from '../../../../firebase-admin.config.json';
 import * as firebase from 'firebase-admin';
 import { DecodedIdToken } from 'firebase-admin/lib/auth';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 const firebase_params = {
-  type: firebaseConfig.type,
-  projectId: firebaseConfig.project_id,
-  privateKeyId: firebaseConfig.private_key_id,
-  privateKey: firebaseConfig.private_key,
-  clientEmail: firebaseConfig.client_email,
-  clientId: firebaseConfig.client_id,
-  authUri: firebaseConfig.auth_uri,
-  tokenUri: firebaseConfig.token_uri,
-  authProviderX509CertUrl: firebaseConfig.auth_provider_x509_cert_url,
-  clientC509CertUrl: firebaseConfig.client_x509_cert_url,
+  type: process.env.NOTELINK_FIREBASE_TYPE,
+  projectId: process.env.NOTELINK_FIREBASE_PROJECT_ID,
+  privateKeyId: process.env.NOTELINK_FIREBASE_PRIVATE_KEY_ID,
+  privateKey: process.env.NOTELINK_FIREBASE_PRIVATE_KEY,
+  clientEmail: process.env.NOTELINK_FIREBASE_CLIENT_EMAIL,
+  clientId: process.env.NOTELINK_FIREBASE_CLIENT_ID,
+  authUri: process.env.NOTELINK_FIREBASE_AUTH_URI,
+  tokenUri: process.env.NOTELINK_FIREBASE_TOKEN_URI,
+  authProviderX509CertUrl:
+    process.env.NOTELINK_FIREBASE_AUTH_PROVIDER_X509_CERT_URL,
+  clientC509CertUrl: process.env.NOTELINK_FIREBASE_CLIENT_X509_CERT_URL,
 };
 
 @Injectable()
