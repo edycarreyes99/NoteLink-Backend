@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "WRITE_YOUR_VALUE_HERE"
+  "private_key_id": "WRITE_YOUR_VALUE_HERE"
+  "private_key": "WRITE_YOUR_VALUE_HERE"
+  "client_email": "WRITE_YOUR_VALUE_HERE"
+  "client_id": "WRITE_YOUR_VALUE_HERE"
+  "auth_uri": "WRITE_YOUR_VALUE_HERE"
+  "token_uri": "WRITE_YOUR_VALUE_HERE"
+  "auth_provider_x509_cert_url": "WRITE_YOUR_VALUE_HERE"
+  "client_x509_cert_url": "WRITE_YOUR_VALUE_HERE"
+}

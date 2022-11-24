@@ -36,6 +36,7 @@ lerna-debug.log*
 
 # environment variables
 .env
+firebase-admin.config.json
 
 # database files
 postgres-data/
