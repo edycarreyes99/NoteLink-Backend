@@ -1,9 +1,9 @@
-import { PassportStrategy } from "@nestjs/passport";
-import { Injectable, UnauthorizedException } from "@nestjs/common";
-import { Strategy, ExtractJwt } from "passport-firebase-jwt";
-import * as firebaseConfig from "../../../../firebase-admin.config.json";
-import * as firebase from "firebase-admin";
-import { DecodedIdToken } from "firebase-admin/lib/auth";
+import { PassportStrategy } from '@nestjs/passport';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Strategy, ExtractJwt } from 'passport-firebase-jwt';
+import * as firebaseConfig from '../../../../firebase-admin.config.json';
+import * as firebase from 'firebase-admin';
+import { DecodedIdToken } from 'firebase-admin/lib/auth';
 
 const firebase_params = {
   type: firebaseConfig.type,
@@ -15,22 +15,22 @@ const firebase_params = {
   authUri: firebaseConfig.auth_uri,
   tokenUri: firebaseConfig.token_uri,
   authProviderX509CertUrl: firebaseConfig.auth_provider_x509_cert_url,
-  clientC509CertUrl: firebaseConfig.client_x509_cert_url
+  clientC509CertUrl: firebaseConfig.client_x509_cert_url,
 };
 
 @Injectable()
 export class FirebaseAuthStrategy extends PassportStrategy(
   Strategy,
-  "firebase-auth"
+  'firebase-auth',
 ) {
   private defaultApp: firebase.app.App;
 
   constructor() {
     super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken()
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     });
     this.defaultApp = firebase.initializeApp({
-      credential: firebase.credential.cert(firebase_params)
+      credential: firebase.credential.cert(firebase_params),
     });
   }
 
