@@ -6,12 +6,15 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { NotesService } from '../services/notes.service';
 import { CreateNoteDto } from '../dto/create-note.dto';
 import { UpdateNoteDto } from '../dto/update-note.dto';
+import { AuthenticatedGuard } from '../../auth/guards/authenticated.guard';
 
 @Controller('notes')
+@UseGuards(AuthenticatedGuard)
 export class NotesController {
   constructor(private readonly notesService: NotesService) {}
 
